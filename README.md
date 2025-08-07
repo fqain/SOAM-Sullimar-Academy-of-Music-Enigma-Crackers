@@ -1,2 +1,3 @@
-# SOAM-Sullimar-Academy-of-Music-Enigma-Crackers
-Full Interactive Web Application for Music School 
+# SOAM-Sullimar-Academy-of-Music
+This is a group project for the Sullimar Academy of Music
+OUR GROUP NAME IS "ENIGMA CRACKERS"

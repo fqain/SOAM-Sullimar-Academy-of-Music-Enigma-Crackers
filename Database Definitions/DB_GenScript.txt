@@ -1,0 +1,1777 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jan 31, 2021 at 03:31 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.34
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `saom`
+--
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addBook` (IN `p_bookName` VARCHAR(45), IN `p_description` VARCHAR(250), IN `p_author` VARCHAR(45), IN `p_yearPublished` YEAR, IN `p_price` DECIMAL, IN `p_category` VARCHAR(45), IN `p_ISBN` VARCHAR(45), IN `p_inStock` INT, IN `p_qty` INT, IN `p_image` VARCHAR(45))  NO SQL
+BEGIN
+	INSERT INTO books
+    (
+    	bookName,
+        description,
+        author,
+        yearPublished,
+        price,
+        category,
+        ISBN,
+        inStock,
+        qty,
+        image
+    )
+    VALUES
+    (
+    	p_bookName,
+        p_description,
+        p_author,
+        p_yearPublished,
+        p_price,
+        p_category,
+        p_ISBN,
+        p_inStock,
+        p_qty,
+        p_image
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addCourse` (IN `p_courseName` VARCHAR(45), IN `p_description` VARCHAR(250), IN `p_levels` VARCHAR(45), IN `p_numberOfYears` INT, IN `p_groupCategory` VARCHAR(45), IN `p_image` VARCHAR(45), IN `p_staffID` INT, IN `p_price` DECIMAL(6,2))  NO SQL
+BEGIN
+	INSERT INTO courses
+    (
+    	courseName,
+        description,
+        levels,
+        numberOfYears,
+        groupCategory,
+        image,
+        staffID,
+        price
+    )
+    VALUES
+    (
+    	p_courseName,
+        p_description,
+        p_levels,
+        p_numberOfYears,
+        p_groupCategory,
+        p_image,
+        p_staffID,
+        p_price
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addEvent` (IN `p_name` VARCHAR(45), IN `p_description` VARCHAR(45), IN `p_dateOfEvent` DATE, IN `p_price` DECIMAL(6,2), IN `p_location` VARCHAR(45), IN `p_image` VARCHAR(45))  NO SQL
+BEGIN
+	INSERT INTO saomevents
+    (
+    	name,
+        description,
+        dateOfEvent,
+        price,
+        location,
+        image
+    )
+    VALUES
+    (
+    	p_name,
+        p_description,
+        p_dateOfEvent,
+        p_price,
+        p_location,
+        p_image
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addExam` (IN `p_examName` VARCHAR(25), IN `p_dateOfExam` DATE, IN `p_price` DOUBLE(6,2), IN `p_image` VARCHAR(45), IN `p_examTime` TIME, IN `p_courseID` INT, IN `p_examCenterID` INT, IN `p_staffID` INT, IN `p_examCategory` VARCHAR(45), IN `p_examDescription` VARCHAR(45), IN `p_Session` VARCHAR(45))  NO SQL
+BEGIN
+	INSERT INTO exams(
+
+    	examName,
+        dateOfExam,
+        price,
+        image,
+        examTime,
+        coursesID,
+        examCenterID,
+   	    staffID,
+
+        examCategory,
+        examDescription,
+        Seasons
+
+    )
+    VALUES(
+
+    	p_examName,
+        p_dateOfExam,
+        p_price,
+        p_image,
+        p_examTime,
+        p_courseID,
+        p_examCenterID,
+        p_staffID,
+
+       p_examCategory,
+        p_examDescription,
+        p_Session
+
+    );
+ END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddMaintenance` (IN `p_instrumentID` INT, IN `p_note` VARCHAR(250))  NO SQL
+BEGIN
+	INSERT INTO instrumentsmaintenance
+    (
+    	instrumentID,
+        note,
+        year_added
+        
+    )
+    VALUES
+    (
+    	p_instrumentID,
+        p_note,
+        now()
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddPexam` (IN `p_examID` INT, IN `p_staffID` INT)  NO SQL
+BEGIN
+	INSERT INTO processexams
+    (
+    	examID,
+        staffID
+        
+    )
+    VALUES
+    (
+    	p_examID,
+        p_staffID
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddPrivatetuition` (IN `p_room` VARCHAR(45), IN `p_studentID` INT, IN `p_staffID` INT, IN `p_note` VARCHAR(250), IN `p_courseID` INT, IN `p_date` DATE, IN `p_time` TIME)  NO SQL
+BEGIN
+	INSERT INTO privatetuition
+    (
+        room,
+        studentID,
+        staffID,
+        note,
+        courseID,
+        year_added,
+     	date,
+        time
+
+    )
+    VALUES
+    (
+    	p_room,
+        p_studentID,
+        p_staffID,
+        p_note,
+        p_courseID,
+        now(),
+        p_date,
+        p_time
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addStaff` (IN `p_fName` VARCHAR(45), IN `p_lName` VARCHAR(45), IN `p_role` VARCHAR(45), IN `p_dob` DATE, IN `p_address` VARCHAR(45), IN `p_email` VARCHAR(45), IN `p_username` VARCHAR(45), IN `p_password` VARCHAR(45), IN `p_phone` INT, IN `p_image` VARCHAR(45), IN `p_courseID` INT)  NO SQL
+BEGIN
+	INSERT INTO staffs
+    (
+    	fName,
+        lName,
+        role,
+        dob,
+        address,
+        email,
+        username,
+        password,
+        phone,
+        image,
+        courseID
+    )
+    VALUES
+    (
+    	p_fName,
+        p_lName,
+        p_role,
+        p_dob,
+        p_address,
+        p_email,
+        p_username,
+        p_password,
+        p_phone,
+        p_image,
+        p_courseID
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addStudent` (IN `p_userName` VARCHAR(25), IN `p_password` VARCHAR(25), IN `p_email` VARCHAR(25), IN `p_dob` DATE, IN `p_phone` VARCHAR(25), IN `p_fName` VARCHAR(25), IN `p_lName` VARCHAR(25), IN `p_address` VARCHAR(25), IN `p_image` VARCHAR(50), IN `p_result` VARCHAR(45), IN `p_courseID` INT)  NO SQL
+BEGIN
+	INSERT INTO student
+    (
+    	userName,
+        password,
+        email,
+        dob,
+        phone,
+        dateEnrollment,
+        fName,
+        lName,
+        address,
+        image,
+        result,
+        courseID
+    )
+    VALUES
+    (
+    	p_userName,
+       p_password,
+       p_email,
+      p_dob,
+       p_phone,
+       now(),
+        p_fName,
+       p_lName,
+       p_address,
+        p_image,
+        p_result,
+        p_courseID
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addTeachersArea` (IN `p_title` VARCHAR(255), IN `p_description` VARCHAR(255), IN `p_image` VARCHAR(255), IN `p_category` VARCHAR(255))  NO SQL
+BEGIN
+    INSERT INTO teachersarea
+    (
+        title,
+        description,
+        image,
+        category
+
+    )
+    VALUES
+    (
+        p_title,
+        p_description,
+        p_image,
+        p_category
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addTimetable` (IN `p_day` VARCHAR(45), IN `p_dates` DATE, IN `p_timeslots` VARCHAR(250), IN `p_moduleName` VARCHAR(45), IN `p_courseID` INT, IN `p_staffID` INT)  NO SQL
+BEGIN
+	INSERT INTO coursetimetable(
+    	day,
+        dates,
+        timeslots,
+        moduleName,
+        courseID,
+        staffID
+        )
+    VALUES(
+    	p_day,
+        p_dates,
+        p_timeslots,
+        p_moduleName,
+        p_courseID,
+        p_staffID
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddtoCart` (IN `p_email` VARCHAR(250), IN `p_examID` INT, IN `p_eventID` INT, IN `p_booksID` INT, IN `p_product_name` VARCHAR(250), IN `p_product_desc` VARCHAR(254), IN `p_quantity` INT, IN `p_price` DECIMAL(5,2), IN `p_date_added` DATETIME, IN `p_image_path` VARCHAR(225))  BEGIN
+INSERT INTO shopping_cart(
+    email,examID,eventID,booksID,product_name,product_desc,quantity,
+    price,date_added,image_path,total)
+VALUES(p_email,p_examID,p_eventID,p_booksID,p_product_name,p_product_desc,p_quantity,
+       p_price,p_date_added,p_image_path,(p_quantity * p_price));
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddtoCartNS` (IN `p_sessionid` INT, IN `p_examID` INT, IN `p_eventID` INT, IN `p_booksID` INT, IN `p_product_name` VARCHAR(250), IN `p_product_desc` VARCHAR(254), IN `p_quantity` INT, IN `p_price` DECIMAL(5,2), IN `p_date_added` DATETIME, IN `p_image_path` VARCHAR(225))  BEGIN
+INSERT INTO shopping_cart(
+    session_id,examID,eventID,booksID,product_name,product_desc,quantity,
+    price,date_added,image_path,total)
+VALUES(p_sessionid,p_examID,p_eventID,p_booksID,p_product_name,p_product_desc,p_quantity,
+       p_price,p_date_added,p_image_path,(p_quantity * p_price));
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `commitCourseApplication` (IN `p_courseName` VARCHAR(255), IN `p_coursesID` INT, IN `p_description` VARCHAR(255), IN `p_levels` VARCHAR(255), IN `p_numberOfYears` INT, IN `p_category` VARCHAR(255), IN `p_price` DECIMAL(5,2), IN `p_fullName` VARCHAR(255), IN `p_email` VARCHAR(255), IN `p_address` VARCHAR(255), IN `p_phoneNumber` INT(10), IN `p_dateOfBirth` DATE, IN `p_additionalInfo` VARCHAR(255))  NO SQL
+BEGIN
+	INSERT INTO courseapplications(
+    	courseName,
+        courseID,
+        description,
+        levels,
+        numberOfYears, 
+        category,
+        price,
+        fullName,
+        email,
+        address,
+        phoneNumber,
+        dateOfBirth,
+        additionalInfo,
+        year_added
+    )
+    VALUES(
+        p_courseName, 
+        p_coursesID, 
+        p_description, 
+        p_levels, 
+        p_numberOfYears,
+        p_category,
+        p_price,
+        p_fullName,
+        p_email,
+        p_address,
+        p_phoneNumber,
+        p_dateOfBirth,
+        p_additionalInfo,
+        now()
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `commitExamApplication` (IN `p_examName` VARCHAR(250), IN `p_examID` INT, IN `p_examDescription` VARCHAR(250), IN `p_dateOfExam` DATE, IN `p_examCategory` VARCHAR(250), IN `p_examTime` TIME, IN `p_price` DECIMAL(5,2), IN `p_Seasons` VARCHAR(250), IN `p_fullName` VARCHAR(250), IN `p_email` VARCHAR(250), IN `p_address` VARCHAR(250), IN `p_dateOfBirth` DATE, IN `p_phoneNumber` VARCHAR(250), IN `p_additionalinfo` VARCHAR(250))  NO SQL
+BEGIN
+	INSERT INTO examapplications(
+        examName,
+        examID,
+        examDescription,
+        dateOfExam,
+        examCategory,
+        examTime,
+        price,
+        Seasons,
+        fullName,
+        email,
+        address,
+        dateOfBirth,
+        phoneNumber,
+        additionalinfo,
+        year_added
+    )
+    VALUES(
+        p_examName,
+        p_examID,
+        p_examDescription,
+        p_dateOfExam,
+        p_examCategory,
+        p_examTime,
+        p_price,
+        p_Seasons,
+        p_fullName,
+        p_email,
+        p_address,
+        p_dateOfBirth,
+        p_phoneNumber,
+        p_additionalinfo,
+        now()
+    );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `confirmDeleteFromCart` (IN `p_email` VARCHAR(255), IN `p_session_id` VARCHAR(255))  NO SQL
+BEGIN
+DELETE FROM shopping_cart
+WHERE email = p_email OR session_id = p_session_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `confirmPurchase` (IN `p_fName` VARCHAR(255), IN `p_lName` VARCHAR(255), IN `p_address` VARCHAR(255), IN `p_email` VARCHAR(255), IN `p_session_id` VARCHAR(255), IN `p_total` DOUBLE(8,2))  NO SQL
+BEGIN
+INSERT INTO purchase(
+datePurchased,fName,lName,address,email,session_id,total,year_added)
+
+VALUES(now(),p_fName,p_lName,p_address,p_email,p_session_id,p_total,now());
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteBook` (IN `p_booksID` INT)  NO SQL
+BEGIN
+	DELETE FROM books
+    WHERE p_booksID = booksID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteCourse` (IN `p_coursesID` INT)  NO SQL
+BEGIN
+	DELETE FROM courses
+    WHERE p_coursesID = coursesID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteEvent` (IN `p_eventID` INT)  NO SQL
+BEGIN
+	DELETE FROM saomevents
+    WHERE p_eventID = eventID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteExam` (IN `p_examID` INT)  NO SQL
+BEGIN
+	DELETE FROM exams
+    WHERE examID  = p_examID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteItem` (IN `p_input` INT, IN `p_userID` VARCHAR(250))  NO SQL
+BEGIN
+	DELETE FROM shopping_cart
+    WHERE booksID = p_input OR eventID = p_input OR examID = p_input OR image_path = p_input
+    AND email = p_userID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteMaintenance` (IN `p_maintenanceID` INT)  NO SQL
+BEGIN
+	DELETE FROM instrumentsmaintenance
+    WHERE p_maintenanceID = maintenanceID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deletePexam` (IN `p_pexamID` INT)  NO SQL
+BEGIN
+	DELETE FROM processexams
+    WHERE p_pexamID = pexamID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deletePrivatetuition` (IN `p_privatetuitionID` INT)  NO SQL
+BEGIN
+	DELETE FROM privatetuition
+    WHERE p_privatetuitionID = privatetuitionID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteStaff` (IN `p_staffID` INT)  NO SQL
+BEGIN
+	DELETE FROM staffs
+    WHERE p_staffID = staffID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteStudent` (IN `p_studentId` INT)  NO SQL
+BEGIN
+	DELETE FROM student
+    WHERE studentID  = p_studentId;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteTeachersArea` (IN `p_teachersAreaID` INT)  NO SQL
+BEGIN
+    DELETE FROM teachersarea
+    WHERE p_teachersAreaID = teachersAreaID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getBookOrders` ()  BEGIN
+SELECT * FROM shopping_cart 
+WHERE booksID IS NOT NULL;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSelectedCourse` (IN `p_courseName` VARCHAR(255))  NO SQL
+BEGIN
+	SELECT coursesID, courseName, description, levels, numberOfYears, groupCategory, image, price
+    FROM courses
+    WHERE courseName = p_courseName;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSelectedExam` (IN `p_examName` INT(255))  NO SQL
+BEGIN
+	SELECT examID, examName, dateOfExam, price, image, examCategory, examTime,coursesID,examCenterID,staffID,examDescription,Seasons
+    FROM exams
+    WHERE examName = p_examName;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetSelectedExamType` ()  NO SQL
+BEGIN
+SELECT examID,examName,
+examCategory
+FROM exams;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSpecificBook` (IN `p_booksID` INT)  BEGIN
+SELECT 	
+booksID,
+bookName,
+description,
+author,
+yearPublished,
+price,
+category,
+ISBN,
+inStock,
+qty,
+image FROM books
+WHERE booksID = p_booksID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSpecificEvent` (IN `p_eventID` INT)  BEGIN
+SELECT 	
+eventID,
+name,
+description,
+dateOfEvent,
+price,
+location,
+image
+FROM saomevents
+WHERE eventID = p_eventID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSpecificExam` (IN `p_examName` INT)  BEGIN
+SELECT 	
+examID,
+examName,
+dateOfExam,
+price,
+image,
+examCategory,
+examTime,
+coursesID,
+examCenterID,
+
+examDescription
+FROM exams
+WHERE examID = p_examName;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getStudent` (IN `p_email` VARCHAR(75))  BEGIN
+SELECT  *
+FROM student
+WHERE p_email = email;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectBookForUpdate` (IN `p_bookID` INT)  NO SQL
+BEGIN
+	SELECT booksID, bookName, description, author, yearPublished, price, category, ISBN, inStock, qty, image FROM books
+    WHERE booksID = p_bookID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectBooksPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT booksID, bookName, description, author, yearPublished, price, category, ISBN, inStock, qty, image 
+FROM books
+ LIMIT  p_limit,p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectCartPerPage` (IN `p_email` VARCHAR(250))  NO SQL
+BEGIN
+SELECT
+shopping_cart.id, student.email, shopping_cart.examID,
+shopping_cart.eventID, shopping_cart.booksID, shopping_cart.product_name,
+shopping_cart.product_desc, shopping_cart.quantity, shopping_cart.price,
+shopping_cart.date_added, shopping_cart.image_path, shopping_cart.total
+FROM student
+INNER JOIN shopping_cart ON student.email = shopping_cart.email;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectCartPerPageNS` (IN `p_sessionid` INT)  NO SQL
+BEGIN
+SELECT
+id, session_id, examID,
+eventID, booksID, product_name,
+product_desc, quantity, price,
+date_added, image_path, total
+FROM shopping_cart
+WHERE session_id = p_sessionid;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectContactsPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT eventID,name, description,dateOfEvent,price,location,image
+FROM saomevents
+ LIMIT p_limit, p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectCourseForUpdate` (IN `p_coursesID` INT)  NO SQL
+BEGIN
+	SELECT coursesID,courseName,description,levels,numberOfYears,groupCategory,image,staffID,price
+    FROM courses
+    WHERE coursesID = p_coursesID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectCoursesPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT coursesID,courseName,description,levels,numberOfYears,groupCategory,image,staffID,price
+FROM courses
+ LIMIT p_limit, p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectEventForUpdate` (IN `p_eventID` INT)  NO SQL
+BEGIN
+	SELECT eventID,name,description,dateOfEvent,price,location,image
+    FROM saomevents
+    WHERE eventID = p_eventID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectExamForUpdate` (IN `p_examID` INT)  NO SQL
+BEGIN
+	SELECT
+    	examID,
+        examName,
+        dateOfExam,
+        price,
+        image,
+        examCategory,
+        examTime,
+        coursesID,
+        examCenterID,
+        staffID,
+        examDescription,
+        Seasons
+ FROM exams
+ WHERE examID = p_examID;
+ END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectExamsPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT examID,
+	   examName,
+       dateOfExam,
+       price,
+       image,
+       examCategory,
+examTime,
+coursesID,
+examCenterID,
+staffID,
+Seasons,
+
+
+examDescription
+FROM exams
+ LIMIT  p_limit,p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectMaintenanceForUpdate` (IN `p_maintenanceID` INT)  NO SQL
+BEGIN
+	SELECT maintenanceID,instrumentID,note FROM instrumentsmaintenance
+    WHERE maintenanceID = p_maintenanceID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectMaintenancesPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT 	
+maintenanceID,
+instrumentID,
+note
+FROM instrumentsmaintenance
+ LIMIT  p_limit,p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectPexamForUpdate` (IN `p_pexamID` INT)  NO SQL
+BEGIN
+	SELECT pexamID,examID,staffID FROM processexams
+    WHERE pexamID = p_pexamID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectPexamsPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT 	
+pexamID,
+examID,
+staffID
+FROM processexams
+ LIMIT  p_limit,p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectPrivatetuitionForUpdate` (IN `p_privatetuitionID` INT)  NO SQL
+BEGIN
+	SELECT 
+        privatetuitionID,
+        room,
+        studentID,
+        staffID,
+        note,
+        courseID,
+        date,
+        time
+    FROM privatetuition
+    WHERE privatetuitionID = p_privatetuitionID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectPrivatetuitionsPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT 
+privatetuitionID,
+room,
+studentID,
+staffID,
+note,
+courseID,
+date,
+time
+FROM privatetuition
+ LIMIT  p_limit,p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectStaffForUpdate` (IN `p_staffID` INT)  NO SQL
+BEGIN
+	SELECT 
+        staffID,
+        fName,
+        lName,
+        role,
+        dob,
+        address,
+        email,
+        username,
+        password,
+        phone,
+        image,
+        courseID
+    FROM staffs
+    WHERE staffID = p_staffID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectStaffsPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT 	staffID,
+		fName,
+        lName,
+        role,
+        dob,
+        address,
+        email,
+        username,
+        password,
+        phone,
+        image,
+        courseID
+FROM staffs
+ LIMIT p_limit, p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectStudentForPurchase` (IN `p_email` VARCHAR(250))  NO SQL
+BEGIN
+  SELECT
+	studentID, username, password, email,
+	dob, phone, dateEnrollment, fName,
+	lName, address, image, result, courseID
+  FROM student
+  WHERE email = p_email;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectStudentForUpdate` (IN `p_studentID` INT)  NO SQL
+BEGIN
+  SELECT
+studentID,
+username,
+password,
+email,
+dob,
+phone,
+dateEnrollment,
+fName,
+lName,
+address,
+image,
+result,
+courseID
+  FROM student
+  WHERE studentID = p_studentID;
+  END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectStudentsPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT 	studentID,
+		username,
+        password,
+        email,
+        dob,
+        phone,
+        dateEnrollment,
+        fName,
+        lName,
+        address,
+        image,
+        result,
+        courseID
+        
+FROM student
+ LIMIT p_limit, p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selectTeachersAreaForUpdate` (IN `p_teachersAreaID` INT)  NO SQL
+BEGIN
+    SELECT 
+    teachersAreaID,
+    title,
+    description,
+    image,
+    category
+    FROM teachersarea
+    WHERE teachersAreaID = p_teachersAreaID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectTeachersAreaPerPage` (IN `p_limit` INT, IN `p_start` INT)  NO SQL
+BEGIN
+SELECT teachersAreaID,    title,    description,    image,    category
+FROM teachersarea
+ LIMIT  p_limit,p_start;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateExam` (IN `p_examID` INT, IN `p_examName` VARCHAR(25), IN `p_dateOfExam` DATE, IN `p_price` DOUBLE, IN `p_image` VARCHAR(100), IN `p_examCategoryID` VARCHAR(45), IN `p_examTime` TIME, IN `p_coursesID` INT, IN `p_examCenterID` VARCHAR(45), IN `p_staffID` INT, IN `p_examDescription` VARCHAR(100), IN `p_session` VARCHAR(62))  NO SQL
+BEGIN
+	UPDATE exams
+    SET
+    examName = p_examName,
+    dateOfExam = p_dateOfExam,
+    price = p_price,
+    image = p_image,
+    examCategory = p_examCategoryID,
+    examTime = p_examTime,
+    coursesID = p_coursesID,
+    examCenterID = p_examCenterID,
+	staffID = p_staffID,
+    examDescription = p_examDescription,
+    Seasons = p_session
+    
+
+
+    WHERE p_examID = examID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSelectedBook` (IN `p_booksID` INT, IN `p_bookName` VARCHAR(45), IN `p_description` VARCHAR(45), IN `p_author` VARCHAR(45), IN `p_yearPublished` YEAR(4), IN `p_price` INT, IN `p_category` VARCHAR(45), IN `p_ISBN` VARCHAR(45), IN `p_inStock` TINYINT(4), IN `p_qty` INT(11), IN `p_image` VARCHAR(45))  NO SQL
+BEGIN
+	UPDATE books
+    SET bookName = p_bookName,
+    description = p_description,
+    author = p_author,
+    yearPublished = p_yearPublished,
+    price = p_price,
+    category = p_category,
+    ISBN = p_ISBN,
+    inStock = p_inStock,
+    qty = p_qty,
+    image = p_image
+    WHERE booksID = p_booksID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSelectedCourse` (IN `p_coursesID` INT, IN `p_courseName` VARCHAR(45), IN `p_description` VARCHAR(250), IN `p_levels` VARCHAR(45), IN `p_numberOfYears` INT, IN `p_groupCategory` VARCHAR(45), IN `p_image` VARCHAR(45), IN `p_staffID` INT, IN `p_price` DECIMAL(6,2))  NO SQL
+BEGIN
+	UPDATE courses
+    SET courseName = p_courseName,
+    description = p_description,
+    levels = p_levels,
+    numberOfYears = p_numberOfYears,
+    groupCategory = p_groupCategory,
+    image = p_image,
+    staffID = p_staffID,
+    price = p_price
+    WHERE coursesID = p_coursesID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSelectedEvent` (IN `p_eventID` INT, IN `p_name` VARCHAR(45), IN `p_description` VARCHAR(250), IN `p_dateOfEvent` DATE, IN `p_price` DECIMAL(6,2), IN `p_location` VARCHAR(45), IN `p_image` VARCHAR(45))  NO SQL
+BEGIN
+	UPDATE saomevents
+    SET name = p_name,
+    description = p_description,
+    dateOfEvent = p_dateOfEvent,
+    price = p_price,
+    location = p_location,
+    image = p_image
+    WHERE eventID = p_eventID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSelectedExam` (IN `p_examID` INT, IN `p_examName` VARCHAR(25), IN `p_dateOfExam` DATE, IN `p_price` DOUBLE, IN `p_image` VARCHAR(25), IN `p_examCategory` VARCHAR(25), IN `p_examTime` INT, IN `p_coursesID` INT, IN `p_examCenterID` INT, IN `p_staffID` INT, IN `p_ExamModule` VARCHAR(25), IN `p_examDescription` VARCHAR(26))  NO SQL
+BEGIN
+	UPDATE exams
+    SET 
+    examName = p_examName,
+    dateOfExam = p_dateOfExam,
+    price = p_price,
+    image = p_image,
+    examCategory = p_examCategory,
+    examTime = p_examTime,
+    coursesID = p_coursesID,
+    examCenterID = p_examCenterID,
+            staffID = p_staffID,
+    ExamModule = p_ExamModule,
+    examDescription = p_examDescription
+    WHERE examID = p_examID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSelectedMaintenance` (IN `p_maintenanceID` INT, IN `p_instrumentID` INT, IN `p_note` VARCHAR(45))  NO SQL
+BEGIN
+	UPDATE instrumentsmaintenance
+    SET instrumentID = p_instrumentID,
+    note = p_note
+    WHERE maintenanceID = p_maintenanceID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSelectedPexam` (IN `p_pexamID` INT, IN `p_examID` INT, IN `p_staffID` INT)  NO SQL
+BEGIN
+	UPDATE processexams
+    SET examID = p_examID,
+    staffID = p_staffID
+    WHERE pexamID = p_pexamID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSelectedPrivatetuition` (IN `p_privatetuitionID` INT, IN `p_room` VARCHAR(45), IN `p_studentID` INT, IN `p_staffID` INT, IN `p_note` VARCHAR(45), IN `p_courseID` INT, IN `p_date` DATE, IN `p_time` TIME)  NO SQL
+BEGIN
+	UPDATE privatetuition
+    SET room = p_room,
+    studentID = p_studentID,
+    staffID = p_staffID,
+    note = p_note,
+    courseID = p_courseID,
+    date = p_date,
+    time = p_time
+    WHERE privatetuitionID = p_privatetuitionID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSelectedStaff` (IN `p_staffID` INT, IN `p_fName` VARCHAR(45), IN `p_lName` VARCHAR(45), IN `p_role` VARCHAR(45), IN `p_dob` DATE, IN `p_address` VARCHAR(250), IN `p_email` VARCHAR(45), IN `p_username` VARCHAR(45), IN `p_password` VARCHAR(45), IN `p_phone` INT, IN `p_image` VARCHAR(45), IN `p_courseID` INT)  NO SQL
+BEGIN
+	UPDATE staffs
+    SET fName = p_fName,
+    lName = p_lName,
+    role = p_role,
+    dob = p_dob,
+    address = p_address,
+    email = p_email,
+    username = p_username,
+    password = p_password,
+    phone = p_phone,
+    image = p_image,
+    courseID = p_courseID
+    WHERE staffID = p_staffID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSelectedTeachersArea` (IN `p_teachersAreaID` INT, IN `p_title` VARCHAR(255), IN `p_description` VARCHAR(255), IN `p_image` VARCHAR(255), IN `p_category` VARCHAR(255))  NO SQL
+BEGIN
+    UPDATE teachersarea
+    SET 
+    title = p_title,
+    description = p_description,
+    image = p_image,
+    category = p_category
+    WHERE teachersAreaID = p_teachersAreaID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updateStudent` (IN `p_studentID` INT, IN `p_fName` VARCHAR(45), IN `p_lName` VARCHAR(45), IN `p_dateEnrollment` DATE, IN `p_dob` DATE, IN `p_address` VARCHAR(255), IN `p_email` VARCHAR(45), IN `p_username` VARCHAR(45), IN `p_password` VARCHAR(45), IN `p_phone` INT, IN `p_image` VARCHAR(45), IN `p_result` VARCHAR(45), IN `p_courseID` INT)  NO SQL
+BEGIN
+	UPDATE student
+    SET
+        username = p_username,
+        password = p_password,
+        email = p_email,
+        dob =p_dob,
+        phone = p_phone,
+        dateEnrollment= p_dateEnrollment,
+        fName =p_fName,
+        lName = p_lName,
+        address= p_address,
+        image = p_image,
+        result = p_result,
+        courseID = p_courseID
+        WHERE p_studentID = studentID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ValidStudent` (IN `p_email` VARCHAR(45), IN `p_password` VARCHAR(45))  NO SQL
+BEGIN
+SELECT password, email, studentID
+FROM student
+WHERE p_email = email AND p_password = password;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ValidUser` (IN `p_email` VARCHAR(25), IN `p_password` VARCHAR(25))  NO SQL
+BEGIN
+SELECT password, email
+FROM staffs
+WHERE p_email = email AND p_password = password;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAllStudentDetails` ()  NO SQL
+BEGIN
+	SELECT * FROM student;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewBookDetails` ()  NO SQL
+BEGIN
+	SELECT * FROM books;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewCourseDetails` ()  NO SQL
+BEGIN
+	SELECT coursesID, courseName, description, levels, numberOfYears, groupCategory, image, staffID, price, coursetimetableID 
+    FROM courses
+    GROUP BY courseName;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewEventDetails` ()  NO SQL
+BEGIN
+	SELECT * FROM saomevents;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewExamDetails` ()  NO SQL
+BEGIN
+	SELECT examID, examName, dateOfExam,price,image,examCategory,coursesID ,staffID examDescription,Seasons 
+    FROM exams
+    GROUP BY examName;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewStudentDetails` ()  NO SQL
+BEGIN
+	SELECT * FROM student;
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books`
+--
+
+CREATE TABLE `books` (
+  `booksID` int(11) NOT NULL,
+  `bookName` varchar(45) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  `author` varchar(45) DEFAULT NULL,
+  `yearPublished` year(4) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `category` varchar(45) DEFAULT NULL,
+  `ISBN` varchar(45) DEFAULT NULL,
+  `inStock` tinyint(4) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `image` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`booksID`, `bookName`, `description`, `author`, `yearPublished`, `price`, `category`, `ISBN`, `inStock`, `qty`, `image`) VALUES
+(1, 'The Meaning of Mariah Carey', ' is a memoir', 'Mariah Carey', 2020, 30, 'Music', '9781250164681', 12, 30, '9780367592622.jpg'),
+(2, 'The Rest Is Noise', 'nonfiction book', 'Alex Ross', 2007, 12, 'Music criticism', ' 9781433207938', 12, 23, '9781409434146.jpg'),
+(11, 'How Music Works', 'non-fiction', 'David Byrne', 2012, 67, 'Biography', '1936365537', 54, 86, '9781628920437.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courseapplications`
+--
+
+CREATE TABLE `courseapplications` (
+  `courseApplicationID` int(11) NOT NULL,
+  `courseName` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `courseID` int(11) NOT NULL,
+  `description` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `levels` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `numberOfYears` int(11) DEFAULT NULL,
+  `category` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `price` decimal(5,2) DEFAULT NULL,
+  `fullName` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `email` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `address` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `dateOfBirth` date DEFAULT NULL,
+  `phoneNumber` varchar(11) COLLATE utf8_bin DEFAULT NULL,
+  `additionalInfo` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `year_added` year(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courses`
+--
+
+CREATE TABLE `courses` (
+  `coursesID` int(11) NOT NULL,
+  `courseName` varchar(45) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  `levels` varchar(45) DEFAULT NULL,
+  `numberOfYears` int(11) DEFAULT NULL,
+  `groupCategory` varchar(45) DEFAULT NULL,
+  `image` varchar(45) DEFAULT NULL,
+  `staffID` int(11) NOT NULL,
+  `price` decimal(6,2) DEFAULT NULL,
+  `coursetimetableID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`coursesID`, `courseName`, `description`, `levels`, `numberOfYears`, `groupCategory`, `image`, `staffID`, `price`, `coursetimetableID`) VALUES
+(1, 'Viola', 'Viola Course', 'Full-Time', 4, 'Grade I', 'fyaz.jpg', 4, '47.65', 1),
+(2, 'Viola', 'Viola Course', 'Full-Time', 4, 'Grade II', 'fyaz.jpg', 4, '59.40', 1),
+(3, 'Viola', 'Viola Course', 'Full-Time', 4, 'Grade III', 'fyaz.jpg', 4, '63.50', 1),
+(4, 'Viola', 'Viola Course', 'Full-Time', 4, 'Grade IV', 'fyaz.jpg', 4, '73.52', 1),
+(5, 'Viola', 'Viola Course', 'Full-Time', 4, 'Grade V', 'fyaz.jpg', 4, '73.52', 1),
+(6, 'Viola', 'Viola Course', 'Full-Time', 4, 'Grade VI', 'fyaz.jpg', 4, '86.43', 1),
+(7, 'Viola', 'Viola Course', 'Full-Time', 4, 'Grade VII', 'fyaz.jpg', 4, '89.50', 1),
+(8, 'Viola', 'Viola Course', 'Full-Time', 4, 'Grade VIII', 'fyaz.jpg', 4, '96.00', 1),
+(9, 'Piano', 'Piano Course', 'Full-Time', 4, 'Grade I', 'fyaz.jpg', 4, '47.65', 1),
+(10, 'Piano', 'Piano Course', 'Full-Time', 4, 'Grade II', 'fyaz.jpg', 4, '59.40', 1),
+(11, 'Piano', 'Piano Course', 'Full-Time', 4, 'Grade III', 'fyaz.jpg', 4, '63.50', 1),
+(12, 'Piano', 'Piano Course', 'Full-Time', 4, 'Grade IV', 'fyaz.jpg', 4, '73.52', 1),
+(13, 'Piano', 'Piano Course', 'Full-Time', 4, 'Grade V', 'fyaz.jpg', 4, '73.52', 1),
+(14, 'Piano', 'Piano Course', 'Full-Time', 4, 'Grade VI', 'fyaz.jpg', 4, '86.43', 1),
+(15, 'Piano', 'Piano Course', 'Full-Time', 4, 'Grade VII', 'fyaz.jpg', 4, '89.50', 1),
+(16, 'Piano', 'Piano Course', 'Full-Time', 4, 'Grade VIII', 'fyaz.jpg', 4, '96.00', 1),
+(17, 'violin', 'violin Course', 'Full-Time', 4, 'Grade I', 'fyaz.jpg', 4, '47.65', 1),
+(18, 'violin', 'violin Course', 'Full-Time', 4, 'Grade II', 'fyaz.jpg', 4, '59.40', 1),
+(19, 'violin', 'violin Course', 'Full-Time', 4, 'Grade III', 'fyaz.jpg', 4, '63.50', 1),
+(20, 'violin', 'violin Course', 'Full-Time', 4, 'Grade IV', 'fyaz.jpg', 4, '73.52', 1),
+(21, 'violin', 'violin Course', 'Full-Time', 4, 'Grade V', 'fyaz.jpg', 4, '73.52', 1),
+(22, 'violin', 'violin Course', 'Full-Time', 4, 'Grade VI', 'fyaz.jpg', 4, '86.43', 1),
+(23, 'violin', 'violin Course', 'Full-Time', 4, 'Grade VII', 'fyaz.jpg', 4, '89.50', 1),
+(24, 'violin', 'violin Course', 'Full-Time', 4, 'Grade VIII', 'fyaz.jpg', 4, '96.00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coursetimetable`
+--
+
+CREATE TABLE `coursetimetable` (
+  `courseTimetableID` int(11) NOT NULL,
+  `day` varchar(45) DEFAULT NULL,
+  `dates` date DEFAULT NULL,
+  `timeslots` varchar(45) DEFAULT NULL,
+  `moduleName` varchar(45) DEFAULT NULL,
+  `courseID` int(11) DEFAULT NULL,
+  `staffID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `coursetimetable`
+--
+
+INSERT INTO `coursetimetable` (`courseTimetableID`, `day`, `dates`, `timeslots`, `moduleName`, `courseID`, `staffID`) VALUES
+(1, 'Monday', '2020-12-12', '11:10-12:10', 'Viola Structures', 1, 4),
+(4, 'Tuesday', '2021-01-08', '13:00-15:00', 'Viola Fundamentals', 1, 4),
+(5, 'Monday', '2020-12-08', '15:00-17:00', 'Viola Techniques', 1, 4),
+(6, 'Tuesday', '2021-01-10', '13:00-15:00', 'Viola Practical', 1, 4),
+(10, 'Wednesday', '2021-01-10', '13:00-15:00', 'Viola Maintenace', 1, 4),
+(11, 'Thursday', '2021-01-10', '13:00-15:00', 'Viola Instrumentation', 1, 4),
+(12, 'Friday', '2021-01-10', '13:00-15:00', 'Viola Construction', 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `examapplications`
+--
+
+CREATE TABLE `examapplications` (
+  `examApplicationID` int(11) NOT NULL,
+  `examName` varchar(45) DEFAULT NULL,
+  `examID` int(11) DEFAULT NULL,
+  `examDescription` varchar(45) DEFAULT NULL,
+  `dateOfExam` date DEFAULT NULL,
+  `examCategory` varchar(45) DEFAULT NULL,
+  `examTime` time DEFAULT NULL,
+  `fullName` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `dateOfBirth` date DEFAULT NULL,
+  `phoneNumber` varchar(11) DEFAULT NULL,
+  `additionalinfo` varchar(255) DEFAULT NULL,
+  `price` decimal(5,2) DEFAULT NULL,
+  `Seasons` varchar(45) DEFAULT NULL,
+  `year_added` year(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exam center`
+--
+
+CREATE TABLE `exam center` (
+  `examCenterID` int(11) NOT NULL,
+  `Location` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exam center`
+--
+
+INSERT INTO `exam center` (`examCenterID`, `Location`) VALUES
+(1, 'Limeick');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exams`
+--
+
+CREATE TABLE `exams` (
+  `examID` int(11) NOT NULL,
+  `examName` varchar(45) DEFAULT NULL,
+  `dateOfExam` date DEFAULT NULL,
+  `price` decimal(6,2) DEFAULT NULL,
+  `image` varchar(45) DEFAULT NULL,
+  `examCategory` varchar(45) DEFAULT NULL,
+  `examTime` time DEFAULT NULL,
+  `coursesID` int(11) NOT NULL,
+  `examCenterID` int(11) NOT NULL,
+  `staffID` int(11) NOT NULL,
+  `examDescription` varchar(255) DEFAULT NULL,
+  `Seasons` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exams`
+--
+
+INSERT INTO `exams` (`examID`, `examName`, `dateOfExam`, `price`, `image`, `examCategory`, `examTime`, `coursesID`, `examCenterID`, `staffID`, `examDescription`, `Seasons`) VALUES
+(1, 'Viola', '0000-00-00', '47.65', 'va.jpg', 'Level I', '-00:00:12', 1, 1, 4, 'Advanced Violin Exam', 'Winter'),
+(2, 'Viola', '2020-12-29', '59.40', 'va.jpg', 'Level II', '00:00:00', 2, 1, 4, 'Advanced Violin Exam', 'Winter'),
+(3, 'Viola', '2020-12-29', '63.50', 'va.jpg', 'Level III', '00:00:12', 3, 1, 4, 'Advanced Violin Exam', 'Winter'),
+(4, 'Viola', '2020-12-29', '73.52', 'va.jpg', 'Level IV', '00:00:12', 4, 1, 4, 'Advanced Violin Exam', 'Winter'),
+(5, 'Viola', '2020-12-29', '73.52', 'va.jpg', 'Level V', '00:00:12', 5, 1, 4, 'Advanced Violin Exam', 'Winter'),
+(6, 'Viola', '2020-12-29', '86.43', 'va.jpg', 'Level VI', '00:00:12', 6, 1, 4, 'Advanced Violin Exam', 'Winter'),
+(7, 'Viola', '2020-12-29', '89.50', 'va.jpg', 'Level VII', '00:00:12', 7, 1, 4, 'Advanced Violin Exam', 'Winter'),
+(8, 'Viola', '2020-12-29', '96.00', 'va.jpg', 'Level VIII', '00:00:12', 8, 1, 4, 'Advanced Violin Exam', 'Winter'),
+(9, 'Piano', '2020-12-29', '47.65', 'va.jpg', 'Level I', '00:00:12', 9, 1, 4, 'Advanced Piano Exam', 'Winter'),
+(10, 'Piano', '2020-12-29', '59.40', 'va.jpg', 'Level II', '00:00:12', 10, 1, 4, 'Advanced Piano Exam', 'Winter'),
+(11, 'Piano', '2020-12-29', '73.52', 'va.jpg', 'Level IV', '00:00:12', 11, 1, 4, 'Advanced Piano Exam', 'Winter'),
+(12, 'Piano', '2020-12-29', '73.52', 'va.jpg', 'Level V', '00:00:12', 12, 1, 4, 'Advanced Piano Exam', 'Winter'),
+(13, 'Piano', '2020-12-29', '86.43', 'va.jpg', 'Level VI', '00:00:12', 13, 1, 4, 'Advanced Piano Exam', 'Winter'),
+(14, 'Piano', '2020-12-29', '89.50', 'va.jpg', 'Level VII', '00:00:12', 14, 1, 4, 'Advanced Piano Exam', 'Winter'),
+(15, 'Piano', '2020-12-29', '96.00', 'va.jpg', 'Level VIII', '00:00:12', 15, 1, 4, 'Advanced Piano Exam', 'Winter'),
+(17, 'Guitar', '2020-12-29', '47.65', 'va.jpg', 'Level I', '00:00:12', 17, 1, 4, 'Advanced Guitar Exam', 'Winter'),
+(18, 'Guitar', '2020-12-29', '59.40', 'va.jpg', 'Level II', '00:00:12', 18, 1, 4, 'Advanced Guitar Exam', 'Winter'),
+(19, 'Guitar', '2020-12-29', '63.50', 'va.jpg', 'Level III', '00:00:12', 19, 1, 4, 'Advanced Guitar Exam', 'Winter'),
+(20, 'Guitar', '2020-12-29', '73.52', 'va.jpg', 'Level IV', '00:00:12', 20, 1, 4, 'Advanced Guitar Exam', 'Winter'),
+(21, 'Guitar', '2020-12-29', '73.52', 'va.jpg', 'Level V', '00:00:12', 21, 1, 4, 'Advanced Guitar Exam', 'Winter'),
+(22, 'Guitar', '2020-12-29', '86.43', 'va.jpg', 'Level VI', '00:00:12', 22, 1, 4, 'Advanced Guitar Exam', 'Winter'),
+(23, 'Guitar', '2020-12-29', '86.50', 'va.jpg', 'Level VII', '00:00:12', 23, 1, 4, 'Advanced Guitar Exam', 'Winter'),
+(24, 'Guitar', '2020-12-29', '96.00', 'va.jpg', 'Level VIII', '00:00:12', 24, 1, 4, 'Advanced Guitar Exam', 'Winter');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instruments`
+--
+
+CREATE TABLE `instruments` (
+  `instrumentID` int(11) NOT NULL,
+  `instrumentName` varchar(45) DEFAULT NULL,
+  `instrumentDescription` varchar(45) DEFAULT NULL,
+  `category` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `instruments`
+--
+
+INSERT INTO `instruments` (`instrumentID`, `instrumentName`, `instrumentDescription`, `category`) VALUES
+(1, 'Violin', 'String based Instrument', 'Strings');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instrumentsmaintenance`
+--
+
+CREATE TABLE `instrumentsmaintenance` (
+  `maintenanceID` int(11) NOT NULL,
+  `instrumentID` int(11) DEFAULT NULL,
+  `note` varchar(45) DEFAULT NULL,
+  `year_added` year(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `instrumentsmaintenance`
+--
+
+INSERT INTO `instrumentsmaintenance` (`maintenanceID`, `instrumentID`, `note`, `year_added`) VALUES
+(1, 1, 'Strings are broken alot', 2021),
+(4, 1, 'A pad is needed', 2021),
+(5, 1, 'Case is lost', 2021);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `privatetuition`
+--
+
+CREATE TABLE `privatetuition` (
+  `privatetuitionID` int(11) NOT NULL,
+  `room` varchar(45) DEFAULT NULL,
+  `studentID` int(11) DEFAULT NULL,
+  `staffID` int(11) DEFAULT NULL,
+  `note` varchar(45) DEFAULT NULL,
+  `courseID` int(11) DEFAULT NULL,
+  `year_added` year(4) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `privatetuition`
+--
+
+INSERT INTO `privatetuition` (`privatetuitionID`, `room`, `studentID`, `staffID`, `note`, `courseID`, `year_added`, `date`, `time`) VALUES
+(1, '1A19', 10, 4, 'i will be 10 minutes late', 1, 2021, '2021-01-22', '37:11:05'),
+(4, '1A11', 10, 6, 'I will be 5 minutes early', 1, 2021, '2021-01-29', '30:09:50'),
+(6, '1A18', 12, 4, 'I will only take a 15 minute session', 1, 2021, '2021-01-20', '22:20:15');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `processexams`
+--
+
+CREATE TABLE `processexams` (
+  `pexamID` int(11) NOT NULL,
+  `examID` int(11) DEFAULT NULL,
+  `staffID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `processexams`
+--
+
+INSERT INTO `processexams` (`pexamID`, `examID`, `staffID`) VALUES
+(3, 24, 3),
+(4, 23, 5),
+(5, 25, 6),
+(9, 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchase`
+--
+
+CREATE TABLE `purchase` (
+  `purchaseID` int(11) NOT NULL,
+  `datePurchased` date DEFAULT NULL,
+  `fName` varchar(255) NOT NULL,
+  `lName` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `session_id` varchar(255) DEFAULT NULL,
+  `total` double(7,2) NOT NULL,
+  `year_added` year(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `saomevents`
+--
+
+CREATE TABLE `saomevents` (
+  `eventID` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  `dateOfEvent` date DEFAULT NULL,
+  `price` decimal(6,2) DEFAULT NULL,
+  `location` varchar(45) DEFAULT NULL,
+  `image` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `saomevents`
+--
+
+INSERT INTO `saomevents` (`eventID`, `name`, `description`, `dateOfEvent`, `price`, `location`, `image`) VALUES
+(20, 'The Festival', 'A traditional hip hop event', '2020-12-29', '12.09', 'Dublin', 'Stendhal-2021.jpg'),
+(21, 'Raidtown Myths', 'Folklores and Light Bass Music', '2021-01-02', '34.21', 'Cork', 'audience-868074_1920.jpg'),
+(22, 'Bomb Squad', 'Latest Rap and Pop Music', '2021-02-07', '89.21', 'Limerick', 'download.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shopping_cart`
+--
+
+CREATE TABLE `shopping_cart` (
+  `id` int(11) NOT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `session_id` int(11) DEFAULT NULL,
+  `examID` int(11) DEFAULT NULL,
+  `eventID` int(11) DEFAULT NULL,
+  `booksID` int(11) DEFAULT NULL,
+  `product_name` varchar(250) NOT NULL,
+  `product_desc` varchar(254) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` decimal(5,2) NOT NULL,
+  `date_added` datetime NOT NULL,
+  `image_path` varchar(225) NOT NULL,
+  `total` double(7,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staffs`
+--
+
+CREATE TABLE `staffs` (
+  `staffID` int(11) NOT NULL,
+  `fName` varchar(45) DEFAULT NULL,
+  `lName` varchar(45) DEFAULT NULL,
+  `role` varchar(45) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `username` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `image` varchar(45) DEFAULT NULL,
+  `courseID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `staffs`
+--
+
+INSERT INTO `staffs` (`staffID`, `fName`, `lName`, `role`, `dob`, `address`, `email`, `username`, `password`, `phone`, `image`, `courseID`) VALUES
+(4, 'Fyaz', 'Ikram', 'Teacher', '2000-12-08', '25 The Crescent Kilteragh', 'fyazikram834@gmail.com', 'fyaz123', 'fyaz123', '894389623', 'fyaz.jpg', 1),
+(5, 'Pierce', 'Griffin', 'Administrator', '1998-01-08', 'The Oakelieywood 10th Avenues', 'pierce@gmail.com', 'pierce123', 'pierce123', '877961289', 'pierce.jpg', 1),
+(6, 'Joe', 'Moloney', 'Administrator', '1994-09-06', 'Toluse The Green ', 'joe@gmail.com', 'joe123', 'joe123', '2147483647', 'fyaz.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student`
+--
+
+CREATE TABLE `student` (
+  `studentID` int(11) NOT NULL,
+  `username` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `email` varchar(45) NOT NULL,
+  `dob` date DEFAULT NULL,
+  `phone` int(11) DEFAULT NULL,
+  `dateEnrollment` date DEFAULT NULL,
+  `fName` varchar(45) DEFAULT NULL,
+  `lName` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `image` varchar(45) DEFAULT NULL,
+  `result` varchar(45) DEFAULT NULL,
+  `courseID` int(11) DEFAULT NULL,
+  `session_id` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`studentID`, `username`, `password`, `email`, `dob`, `phone`, `dateEnrollment`, `fName`, `lName`, `address`, `image`, `result`, `courseID`, `session_id`) VALUES
+(10, 'fyaz12345', 'fyaz123', 'fyazikram834@gmail.com', '2000-12-08', 894389623, '2020-12-25', 'Fyaz', 'Ikram', '25 The Crescent Kilteragh', 'fyaz.jpg', '75', 1, NULL),
+(11, 'pierce123', 'pierce123', 'pierce@gmail.com', '1997-12-07', 856749912, '2020-12-25', 'Pierce', 'Griffin', '12 Abbeyville Adare', 'pierce.jpg', 'N/A', 1, NULL),
+(12, 'joe', 'joe123', 'joe@gmail.com', '1994-09-06', 2147483647, '2021-01-07', 'Joe', 'Moloney', 'Evergreen 16th Street', 'fyaz.jpg', 'N/A', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teachersarea`
+--
+
+CREATE TABLE `teachersarea` (
+  `teachersAreaID` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `teachersarea`
+--
+
+INSERT INTO `teachersarea` (`teachersAreaID`, `title`, `description`, `image`, `category`) VALUES
+(4, 'Lorem Ipsum', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, yo', 'Stendhal-2021.jpg', 'Hello'),
+(5, 'Lorem Ipsum', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one ', 'Stendhal-2021.jpg', 'Hello');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`booksID`);
+
+--
+-- Indexes for table `courseapplications`
+--
+ALTER TABLE `courseapplications`
+  ADD PRIMARY KEY (`courseApplicationID`);
+
+--
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`coursesID`),
+  ADD KEY `fk_Courses_Staffs1_idx` (`staffID`),
+  ADD KEY `FK_coursetimetableID` (`coursetimetableID`);
+
+--
+-- Indexes for table `coursetimetable`
+--
+ALTER TABLE `coursetimetable`
+  ADD PRIMARY KEY (`courseTimetableID`),
+  ADD KEY `courseID` (`courseID`),
+  ADD KEY `staffID` (`staffID`);
+
+--
+-- Indexes for table `examapplications`
+--
+ALTER TABLE `examapplications`
+  ADD PRIMARY KEY (`examApplicationID`);
+
+--
+-- Indexes for table `exam center`
+--
+ALTER TABLE `exam center`
+  ADD PRIMARY KEY (`examCenterID`);
+
+--
+-- Indexes for table `exams`
+--
+ALTER TABLE `exams`
+  ADD PRIMARY KEY (`examID`),
+  ADD KEY `fk_Exams_Courses1_idx` (`coursesID`),
+  ADD KEY `fk_Exams_Exam Center1_idx` (`examCenterID`),
+  ADD KEY `staffID` (`staffID`);
+
+--
+-- Indexes for table `instruments`
+--
+ALTER TABLE `instruments`
+  ADD PRIMARY KEY (`instrumentID`);
+
+--
+-- Indexes for table `instrumentsmaintenance`
+--
+ALTER TABLE `instrumentsmaintenance`
+  ADD PRIMARY KEY (`maintenanceID`),
+  ADD KEY `instrumentID` (`instrumentID`);
+
+--
+-- Indexes for table `privatetuition`
+--
+ALTER TABLE `privatetuition`
+  ADD PRIMARY KEY (`privatetuitionID`),
+  ADD KEY `studentID` (`studentID`),
+  ADD KEY `staffID` (`staffID`),
+  ADD KEY `courseID` (`courseID`);
+
+--
+-- Indexes for table `processexams`
+--
+ALTER TABLE `processexams`
+  ADD PRIMARY KEY (`pexamID`),
+  ADD KEY `examID` (`examID`),
+  ADD KEY `staffID` (`staffID`);
+
+--
+-- Indexes for table `purchase`
+--
+ALTER TABLE `purchase`
+  ADD PRIMARY KEY (`purchaseID`);
+
+--
+-- Indexes for table `saomevents`
+--
+ALTER TABLE `saomevents`
+  ADD PRIMARY KEY (`eventID`);
+
+--
+-- Indexes for table `shopping_cart`
+--
+ALTER TABLE `shopping_cart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_scEmail_sEmail` (`email`);
+
+--
+-- Indexes for table `staffs`
+--
+ALTER TABLE `staffs`
+  ADD PRIMARY KEY (`staffID`);
+
+--
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`studentID`,`email`),
+  ADD KEY `courseID` (`courseID`),
+  ADD KEY `email` (`email`);
+
+--
+-- Indexes for table `teachersarea`
+--
+ALTER TABLE `teachersarea`
+  ADD PRIMARY KEY (`teachersAreaID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `booksID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `courseapplications`
+--
+ALTER TABLE `courseapplications`
+  MODIFY `courseApplicationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `coursesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `coursetimetable`
+--
+ALTER TABLE `coursetimetable`
+  MODIFY `courseTimetableID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `examapplications`
+--
+ALTER TABLE `examapplications`
+  MODIFY `examApplicationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `exam center`
+--
+ALTER TABLE `exam center`
+  MODIFY `examCenterID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `exams`
+--
+ALTER TABLE `exams`
+  MODIFY `examID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT for table `instruments`
+--
+ALTER TABLE `instruments`
+  MODIFY `instrumentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `instrumentsmaintenance`
+--
+ALTER TABLE `instrumentsmaintenance`
+  MODIFY `maintenanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `privatetuition`
+--
+ALTER TABLE `privatetuition`
+  MODIFY `privatetuitionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `processexams`
+--
+ALTER TABLE `processexams`
+  MODIFY `pexamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `purchase`
+--
+ALTER TABLE `purchase`
+  MODIFY `purchaseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `saomevents`
+--
+ALTER TABLE `saomevents`
+  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `shopping_cart`
+--
+ALTER TABLE `shopping_cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
+
+--
+-- AUTO_INCREMENT for table `staffs`
+--
+ALTER TABLE `staffs`
+  MODIFY `staffID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `studentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `teachersarea`
+--
+ALTER TABLE `teachersarea`
+  MODIFY `teachersAreaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `courses`
+--
+ALTER TABLE `courses`
+  ADD CONSTRAINT `FK_coursetimetableID` FOREIGN KEY (`coursetimetableID`) REFERENCES `coursetimetable` (`courseTimetableID`);
+
+--
+-- Constraints for table `coursetimetable`
+--
+ALTER TABLE `coursetimetable`
+  ADD CONSTRAINT `coursetimetable_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `courses` (`coursesID`),
+  ADD CONSTRAINT `coursetimetable_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staffs` (`staffID`);
+
+--
+-- Constraints for table `instrumentsmaintenance`
+--
+ALTER TABLE `instrumentsmaintenance`
+  ADD CONSTRAINT `instrumentsmaintenance_ibfk_1` FOREIGN KEY (`instrumentID`) REFERENCES `instruments` (`instrumentID`);
+
+--
+-- Constraints for table `privatetuition`
+--
+ALTER TABLE `privatetuition`
+  ADD CONSTRAINT `privatetuition_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`studentID`),
+  ADD CONSTRAINT `privatetuition_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staffs` (`staffID`),
+  ADD CONSTRAINT `privatetuition_ibfk_3` FOREIGN KEY (`courseID`) REFERENCES `courses` (`coursesID`);
+
+--
+-- Constraints for table `processexams`
+--
+ALTER TABLE `processexams`
+  ADD CONSTRAINT `processexams_ibfk_1` FOREIGN KEY (`examID`) REFERENCES `exams` (`examID`),
+  ADD CONSTRAINT `processexams_ibfk_2` FOREIGN KEY (`staffID`) REFERENCES `staffs` (`staffID`);
+
+--
+-- Constraints for table `shopping_cart`
+--
+ALTER TABLE `shopping_cart`
+  ADD CONSTRAINT `fk_scEmail_sEmail` FOREIGN KEY (`email`) REFERENCES `student` (`email`);
+
+--
+-- Constraints for table `student`
+--
+ALTER TABLE `student`
+  ADD CONSTRAINT `courseID` FOREIGN KEY (`courseID`) REFERENCES `courses` (`coursesID`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
